@@ -1,0 +1,6 @@
+/Users/evertongodoy/Documents/projetos-java/app-senac-aws-rds-modelo/src/main/java/br/com/sp/awsmodelo/AwsModeloApplication.java
+/Users/evertongodoy/Documents/projetos-java/app-senac-aws-rds-modelo/src/main/java/br/com/sp/awsmodelo/controller/MvcModeloController.java
+/Users/evertongodoy/Documents/projetos-java/app-senac-aws-rds-modelo/src/main/java/br/com/sp/awsmodelo/dto/PessoaDTO.java
+/Users/evertongodoy/Documents/projetos-java/app-senac-aws-rds-modelo/src/main/java/br/com/sp/awsmodelo/entity/PessoaEntity.java
+/Users/evertongodoy/Documents/projetos-java/app-senac-aws-rds-modelo/src/main/java/br/com/sp/awsmodelo/mapper/PessoaMapper.java
+/Users/evertongodoy/Documents/projetos-java/app-senac-aws-rds-modelo/src/main/java/br/com/sp/awsmodelo/repository/PessoaRepository.java

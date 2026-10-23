@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Modelo</title>
+    <style>
+        :root { --primary: #004a8d; --accent: #f7941d; --dark: #0b1f3a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; color: #243447; background: #f4f7fb; line-height: 1.6; }
+        header { position: sticky; top: 0; z-index: 10; background: rgba(11,31,58,.95); backdrop-filter: blur(6px); }
+        nav { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
+        .logo { color: #fff; font-weight: 700; font-size: 1.3rem; letter-spacing: .5px; }
+        .logo span { color: var(--accent); }
+        nav ul { display: flex; gap: 1.5rem; list-style: none; }
+        nav a { color: #cfd9e6; text-decoration: none; font-size: .95rem; transition: color .2s; }
+        nav a:hover { color: var(--accent); }
+        .hero { background: linear-gradient(135deg, var(--dark), var(--primary) 60%, #1a78d1); color: #fff; text-align: center; padding: 7rem 1.5rem 8rem; position: relative; overflow: hidden; }
+        .hero::after { content: ''; position: absolute; width: 500px; height: 500px; right: -150px; top: -150px; border-radius: 50%; background: radial-gradient(circle, rgba(247,148,29,.35), transparent 70%); }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); margin-bottom: 1rem; position: relative; }
+        .hero p { max-width: 620px; margin: 0 auto 2rem; color: #d6e4f5; font-size: 1.15rem; position: relative; }
+        .btn { display: inline-block; background: var(--accent); color: #fff; padding: .85rem 2rem; border-radius: 999px; text-decoration: none; font-weight: 600; box-shadow: 0 6px 18px rgba(247,148,29,.4); transition: transform .2s, box-shadow .2s; position: relative; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(247,148,29,.5); }
+        .features { max-width: 1100px; margin: -4rem auto 0; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; position: relative; z-index: 2; }
+        .card { background: #fff; border-radius: 14px; padding: 2rem; box-shadow: 0 10px 30px rgba(11,31,58,.12); transition: transform .25s; }
+        .card:hover { transform: translateY(-6px); }
+        .icon { width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), #1a78d1); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+        .card h3 { color: var(--dark); margin-bottom: .5rem; }
+        .status { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; text-align: center; }
+        .badge { display: inline-flex; align-items: center; gap: .5rem; background: #e6f7ee; color: #12703f; padding: .5rem 1.2rem; border-radius: 999px; font-weight: 600; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #1fb865; animation: pulse 1.6s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(31,184,101,.6); } 100% { box-shadow: 0 0 0 12px rgba(31,184,101,0); } }
+        footer { background: var(--dark); color: #9fb2c9; text-align: center; padding: 1.5rem; font-size: .9rem; }
+        .tabela { width: 100%; border-collapse: collapse; }
+        .tabela th, .tabela td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid #e3eaf3; }
+        .tabela th { color: var(--dark); background: #f0f5fb; }
+        .tabela tbody tr:hover { background: #f8fbff; }
+        .vazio { color: #6b7c93; text-align: center; padding: 1rem; }
+        @media (max-width: 600px) { nav ul { display: none; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS<span>Modelo</span></div>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#status">Status</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>Aplicação AWS Modelo</h1>
+        <p>Projeto base em Spring Boot pronto para ser publicado na nuvem, simples, escalável e seguro.</p>
+        <a class="btn" href="#recursos">Saiba mais</a>
+    </section>
+
+    <section class="features" id="recursos">
+        <div class="card" style="grid-column: 1 / -1;">
+            <div class="icon">👥</div>
+            <h3>Pessoas (Amazon RDS MySQL)</h3>
+            <table class="tabela">
+                <thead>
+                    <tr><th>Nome</th><th>Data de nascimento</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pessoa : ${pessoas}">
+                        <td th:text="${pessoa.nome}">Nome</td>
+                        <td th:text="${#temporals.format(pessoa.dataNascimento, 'dd/MM/yyyy')}">01/01/2000</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pessoas)}">
+                        <td colspan="2" class="vazio">Nenhuma pessoa cadastrada.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="status" id="status">
+        <div class="badge"><span class="dot"></span> Aplicação carregada com sucesso</div>
+    </section>
+
+    <footer>&copy; 2026 AWS Modelo · SENAC</footer>
+</body>
+</html>

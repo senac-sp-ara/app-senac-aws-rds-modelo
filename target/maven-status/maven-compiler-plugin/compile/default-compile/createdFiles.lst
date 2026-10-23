@@ -1,0 +1,7 @@
+br/com/sp/awsmodelo/entity/PessoaEntity.class
+br/com/sp/awsmodelo/repository/PessoaRepository.class
+br/com/sp/awsmodelo/AwsModeloApplication.class
+br/com/sp/awsmodelo/dto/PessoaDTO.class
+br/com/sp/awsmodelo/mapper/PessoaMapperImpl.class
+br/com/sp/awsmodelo/mapper/PessoaMapper.class
+br/com/sp/awsmodelo/controller/MvcModeloController.class
