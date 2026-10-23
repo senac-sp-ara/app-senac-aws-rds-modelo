@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: aws-modelo
+  datasource:
+    # Valores injetados via variáveis de ambiente (Secret do Kubernetes em produção)
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:appdb}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
