@@ -68,6 +68,27 @@ jobs:
       - name: Configurar kubectl
         run: aws eks update-kubeconfig --name "$CLUSTER_NAME" --region "$AWS_REGION"
 
+      - name: Criar/atualizar secret do banco no Kubernetes
+        run: |
+          # Usa a primeira instância RDS com engine MySQL da conta/região
+          DB_JSON=$(aws rds describe-db-instances \
+            --query "DBInstances[?Engine=='mysql'] | [0]" --output json)
+          DB_HOST=$(echo "$DB_JSON" | jq -r '.Endpoint.Address')
+          DB_NAME=$(echo "$DB_JSON" | jq -r '.DBName')
+          DB_USERNAME=$(echo "$DB_JSON" | jq -r '.MasterUsername')
+          SECRET_ARN=$(echo "$DB_JSON" | jq -r '.MasterUserSecret.SecretArn')
+
+          DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id "$SECRET_ARN" \
+            --query SecretString --output text | jq -r '.password')
+          echo "::add-mask::$DB_PASSWORD"
+
+          kubectl create secret generic pessoas-db-secret \
+            --from-literal=DB_HOST="$DB_HOST" \
+            --from-literal=DB_NAME="$DB_NAME" \
+            --from-literal=DB_USERNAME="$DB_USERNAME" \
+            --from-literal=DB_PASSWORD="$DB_PASSWORD" \
+            --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Aplicar manifestos
         run: kubectl apply -f k8s/
 
